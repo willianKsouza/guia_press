@@ -1,28 +1,61 @@
 <%- include('../../partials/header') %>
 
-<body>
-  <%- include('../../partials/navbar') %>
-  <div class="container">
-    <hr />
-    <h2>Categorias</h2>
-    <hr />
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Slug</th>
-          <th>Ações</th>
-        </tr>
-        <tbody>
+  <body>
+    <%- include('../../partials/navbar') %>
+      <div class="container">
+        <hr />
+        <h2>Categorias</h2>
+        <hr />
+        <a href="/admin/categories/new" class="btn btn-warning">Criar nova categoria</a>
+        <hr>
+        <table class="table table-bordered">
+          <thead>
             <tr>
-                <th>1</th>
-                <th>Slug wdawdawd</th>
-                <th>Ações221</th>
-             
+              <th>Id</th>
+              <th>title</th>
+              <th>Slug</th>
+              <th>Ações</th>
             </tr>
-        </tbody>
-      </thead>
-    </table>
-  </div>
-</body>
-<%- include('../../partials/footer')%>
+          <tbody>
+            <% categories.forEach(category=> { %>
+              <tr>
+                <th>
+                  <%= category.id %>
+                </th>
+                <th>
+                  <%= category.title %>
+                </th>
+                <th>
+                  <%= category.slug %>
+                </th>
+                <th class="d-flex justify-content-around">
+
+                  <button class="btn btn-primary">
+                    Editar
+                  </button>
+
+                  <form method="POST" action="/categories/delete" onsubmit="confirmarDelecao(event, this)">
+                    <input type="hidden" name="deleteId" value="<%= category.id %>">
+                    <button class="btn btn-danger">
+                      Delete
+                    </button>
+                  </form>
+                </th>
+
+              </tr>
+              <%}) %>
+          </tbody>
+          </thead>
+        </table>
+      </div>
+      <script>
+        function confirmarDelecao(event, form) {
+          event.preventDefault();
+          const decision = confirm('voce quer deletar esta categoria')
+          if (decision) {
+            form.submit()
+          } 
+        }
+      </script>
+  </body>
+  <%- include('../../partials/footer')%>
