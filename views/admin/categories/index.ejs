@@ -26,13 +26,13 @@
                   <%= category.title %>
                 </th>
                 <th>
-                  <%= category.slug %>
+                  category
                 </th>
                 <th class="d-flex justify-content-around">
 
-                  <button class="btn btn-primary">
+                  <a href="/admin/categories/edit/<%= category.id %>" class="btn btn-primary">
                     Editar
-                  </button>
+                  </a>
 
                   <form method="POST" action="/categories/delete" onsubmit="confirmarDelecao(event, this)">
                     <input type="hidden" name="deleteId" value="<%= category.id %>">
