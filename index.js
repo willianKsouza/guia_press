@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 //   arquivos estaticos - enxergar
 app.use(express.static('public'))
 
-
+//DATABASE
 connection.authenticate()
     .then(() => {
         console.log('sucesso na conexao')
@@ -33,14 +33,18 @@ connection.authenticate()
 
 
 app.get('/', function(req, res) {
-    res.render('index')
+    Article.findAll().then((articles) => {
+        res.render('index', {
+            articles
+        })
+    })
 })
 
 
 app.use('/', categoriesController)
 app.use('/', articlesController)
 
-//DATABASE
+
 
 
 app.listen(8080, () => {
