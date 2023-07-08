@@ -19,6 +19,14 @@ app.use(bodyParser.json())
 //   arquivos estaticos - enxergar
 app.use(express.static('public'))
 
+
+
+app.use('/', categoriesController)
+app.use('/', articlesController)
+
+
+
+
 //DATABASE
 connection.authenticate()
     .then(() => {
@@ -33,7 +41,16 @@ connection.authenticate()
 
 
 app.get('/', function(req, res) {
-    Article.findAll().then((articles) => {
+    Article.findAll({
+        order:[
+            ['id', 'DESC']
+        ]
+    }).then((articles) => {
+
+
+        Category.findAll().then(categories => {
+            
+        })
         res.render('index', {
             articles
         })
@@ -41,9 +58,26 @@ app.get('/', function(req, res) {
 })
 
 
-app.use('/', categoriesController)
-app.use('/', articlesController)
 
+app.get('/:slug', (req, res) => {
+    const slug = req.params.slug
+    Article.findOne({
+        where: {
+            slug:slug
+        }
+    }).then((article) => {
+        if (article != undefined) {
+            res.render('article', {
+                article
+            })
+        } else {
+            res.redirect('/')
+        }
+    }).catch(err => {
+        res.redirect('/')
+    })
+
+})
 
 
 
