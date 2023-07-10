@@ -1,0 +1,59 @@
+<%- include('../../partials/header') %>
+
+<body>
+  <%- include('../../partials/navbar') %>
+  <div class="container">
+ 
+    <div class="card">
+        <div class="card-header">
+
+            <h2>Editar Artigo</h2> 
+        </div>
+        <div class="card-body">
+            <form action="/articles/update" method="POST">
+                <input
+                  type="hidden"
+                  name="id"
+                  value="<%= article.id %>"
+                />
+                <input
+                  class="form-control"
+                  type="text"
+                  name="title"
+                  value="<%= article.title %>"
+                /><br>
+                <textarea class="form-control" placeholder="Escreva o artigo aqui" name="body" id="article">
+                    <%- article.body %>
+                </textarea>
+                <label>Categoria</label>
+                <select name="category" class="form-control">
+                    <% categories.forEach(category => {%>
+                      <% if(category.id == article.categoryId) { %>
+                        <option value="<%= category.id %>" selected><%= category.title %></option>
+                        <% } else {%>
+                          <option value="<%= category.id %>"><%= category.title %></option>
+
+                          <% }%>
+                       
+                    <% })%>
+                </select>
+                <br>
+                <button class="btn btn-warning">Atualizar</button>
+              </form>
+        </div>
+      
+    </div>
+  </div>
+
+  <script src="https://cdn.tiny.cloud/1/gvo1d1e6jh104ggglj1flky5a9aiswybrckkab00nikiyiyp/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+ 
+<script>
+      tinymce.init({
+        selector: '#article',
+        plugins:[
+            'advlist autolink image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+        ]
+      });
+    </script>
+</body>
+<%- include('../../partials/footer')%>

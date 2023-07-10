@@ -3,9 +3,10 @@
     Guia press
     </a>
     <ul class="navbar-nav mr-auto ">
+        <% categories.forEach(category => { %>
         <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="/category/<%= category.slug %>"><%= category.title %></a>
         </li>
-
+        <% }) %>
     </ul>
     </nav>
