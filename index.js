@@ -44,7 +44,8 @@ app.get('/', function(req, res) {
     Article.findAll({
         order:[
             ['id', 'DESC']
-        ]
+        ],
+        limit:3
     }).then((articles) => {
 
 

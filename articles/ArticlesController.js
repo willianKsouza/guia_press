@@ -114,12 +114,41 @@ router.post('/articles/update', (req, res) => {
 
 router.get('/articles/page/:num', (req, res) => {
     const page = req.params.num
+    let offset = 0
+
+    if (isNaN(offset) || page == 1) {
+        offset = 0
+    }else {
+        offset = parseInt(page - 1) * 3
+    }
+
 
     Article.findAndCountAll({
         limit:3,
-        offset:3
+        offset:offset ,
+        order:[
+            ['id', 'DESC']
+        ],
     }).then(articles => {
-        res.json(articles)
+
+        let next
+        if (offset + 3 >= articles.count) {
+            next = false
+        } else {
+            next = true
+        }
+        const result = {
+            next:next,
+            articles:articles
+        }
+
+        Category.findAll().then(categories => {
+
+            res.render('admin/articles/page', {
+                result:result,
+                categories
+            })
+        })
     })
 })
 

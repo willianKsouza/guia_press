@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize').Sequelize
 
 const connection = new Sequelize('guiapress', 'root', 'root', {
     host:'localhost',
