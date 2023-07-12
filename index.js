@@ -5,9 +5,10 @@ const bodyParser = require('body-parser')
 const categoriesController = require('./categories/CategoriesController')
 const articlesController = require('./articles/ArticlesController')
 
-
+const usersController = require('./user/UsersController')
 const Article = require('./articles/Article')
 const Category = require('./categories/Category')
+const User = require('./user/User')
 
 
 //   view engine
@@ -23,6 +24,7 @@ app.use(express.static('public'))
 
 app.use('/', categoriesController)
 app.use('/', articlesController)
+app.use('/', usersController)
 
 
 

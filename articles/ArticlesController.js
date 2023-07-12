@@ -138,14 +138,15 @@ router.get('/articles/page/:num', (req, res) => {
             next = true
         }
         const result = {
-            next:next,
-            articles:articles
+            page:parseInt(page),
+            next,
+            articles
         }
 
         Category.findAll().then(categories => {
 
             res.render('admin/articles/page', {
-                result:result,
+                result,
                 categories
             })
         })
