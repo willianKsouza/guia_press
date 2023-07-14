@@ -21,11 +21,14 @@ app.use(bodyParser.json())
 //   arquivos estaticos - enxergar
 app.use(express.static('public'))
 
+
+
+
 //session
 app.use(session({
     secret:'qualquercoisa',
     cookie:{
-        maxAge:30000
+        maxAge:300000
     }
 }))
 
